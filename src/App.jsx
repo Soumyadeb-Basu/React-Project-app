@@ -3,8 +3,28 @@ import { CORE_CONCEPTS } from "./data"; //named data imported using {}
 import Header from "./components/Header/Header";
 import CoreConcept from "./components/CoreConcepts";
 import TabButton from "./components/TabButton";
+import { useState } from "react";
+import { EXAMPLES } from "./data";
 
 function App() {
+  const [selectedState, setSelectedState] = useState(null);
+
+  function handleSelect(selectedButton) {
+    setSelectedState(selectedButton);
+  }
+
+  let topic = <p>Select a Option!</p>;
+  if (selectedState) {
+    topic = (
+      <div id="tab-content">
+        <h3>{EXAMPLES[selectedState].title}</h3>
+        <p>{EXAMPLES[selectedState].description}</p>
+        <pre>
+          <code>{EXAMPLES[selectedState].code}</code>
+        </pre>
+      </div>
+    );
+  }
   return (
     <div>
       <Header />
@@ -33,12 +53,15 @@ function App() {
         <section id="examples">
           <h2>Examples</h2>
           <menu>
-            <TabButton>Components</TabButton>
-            <TabButton>JSX</TabButton>
-            <TabButton>Props</TabButton>
-            <TabButton>State</TabButton>
+            <TabButton onSelect={() => handleSelect("components")}>
+              Components
+            </TabButton>
+            <TabButton onSelect={() => handleSelect("jsx")}>JSX</TabButton>
+            <TabButton onSelect={() => handleSelect("props")}>Props</TabButton>
+            <TabButton onSelect={() => handleSelect("state")}>State</TabButton>
           </menu>
         </section>
+        {topic}
       </main>
     </div>
   );
