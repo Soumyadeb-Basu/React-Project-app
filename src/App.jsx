@@ -32,33 +32,38 @@ function App() {
         <section id="core-concepts">
           <h2>Core Concepts</h2>
           <ul>
-            <CoreConcept
-              image={CORE_CONCEPTS[0].image}
-              title={CORE_CONCEPTS[0].title}
-              description={CORE_CONCEPTS[0].description}
-            />
-            <CoreConcept
-              image={CORE_CONCEPTS[1].image}
-              title={CORE_CONCEPTS[1].title}
-              description={CORE_CONCEPTS[1].description}
-            />
-            <CoreConcept
-              image={CORE_CONCEPTS[2].image}
-              title={CORE_CONCEPTS[2].title}
-              description={CORE_CONCEPTS[2].description}
-            />
-            <CoreConcept {...CORE_CONCEPTS[3]} />
+            {CORE_CONCEPTS.map((concept) => (
+              <CoreConcept key={concept.title} {...concept} /> //We are using map to iterate over each concept item and enter it as a prop to CoreConcept component
+            ))}
           </ul>
         </section>
         <section id="examples">
           <h2>Examples</h2>
           <menu>
-            <TabButton onSelect={() => handleSelect("components")}>
+            <TabButton
+              isSelected={selectedState === "components"}
+              onSelect={() => handleSelect("components")}
+            >
               Components
             </TabButton>
-            <TabButton onSelect={() => handleSelect("jsx")}>JSX</TabButton>
-            <TabButton onSelect={() => handleSelect("props")}>Props</TabButton>
-            <TabButton onSelect={() => handleSelect("state")}>State</TabButton>
+            <TabButton
+              isSelected={selectedState === "jsx"}
+              onSelect={() => handleSelect("jsx")}
+            >
+              JSX
+            </TabButton>
+            <TabButton
+              isSelected={selectedState === "props"}
+              onSelect={() => handleSelect("props")}
+            >
+              Props
+            </TabButton>
+            <TabButton
+              isSelected={selectedState === "state"}
+              onSelect={() => handleSelect("state")}
+            >
+              State
+            </TabButton>
           </menu>
         </section>
         {topic}
